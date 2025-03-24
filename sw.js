@@ -21,3 +21,24 @@ const registrarServiceWorker = async () => {
 }
 
 registrarServiceWorker();
+
+
+
+const addAoCache = async (recursos) => {
+    const cache = await caches.open("v1")
+    await cache.addAll(recursos)
+}
+
+
+self.addEventListener("install", (evento) => {
+    evento.waitUntil(
+        addAoCache([
+            "/",
+            "/index.html",
+            "/icon.png",
+            "/manifest.json",
+            "/sw.js",
+            "contatos.json"
+        ])
+    )
+})
