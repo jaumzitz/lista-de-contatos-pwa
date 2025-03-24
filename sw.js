@@ -37,7 +37,7 @@ self.addEventListener("install", (evento) => {
             "/index.html",
             "/icon.png",
             "/manifest.json",
-            "/sw.js",
+            
             "contatos.json"
         ])
     )
