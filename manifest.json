@@ -1,0 +1,18 @@
+{
+    "lang": "pt-BR",
+    "dir": "ltr",
+    "name": "Lista de Contatos",
+    "short_name": "Contatos",
+    "icons": [{
+      "src": "icon.png",
+      "sizes": "225x225",
+      "type": "image/png"
+    }],
+    "scope": "/",
+    "id": "contatos",
+    "start_url": "/index.html",
+    "display": "fullscreen",
+    "orientation": "landscape",
+    "theme_color": "aliceblue",
+    "background_color": "red"
+  }

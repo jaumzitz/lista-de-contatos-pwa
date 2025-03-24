@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="manifest" href="manifest.json">
+    <script src="sw.js"></script>
+
+</head>
+
+<body>
+
+
+    <contato-card></contato-card>
+
+
+</body>
+
+<script>
+
+
+    
+
+    class ContatoCard extends HTMLElement {
+
+        constructor() {
+            super()
+            this.attachShadow({ mode: 'open' })
+        }
+
+
+
+        connectedCallback() {
+
+
+
+            const nome = this.getAttribute('nome');
+            const telefone = this.getAttribute('telefone');
+            const endereco = this.getAttribute('endereco');
+            const cidade = this.getAttribute('cidade');
+            const uf = this.getAttribute('uf');
+
+            const contatos = [
+                { nome: 'João da Silva', telefone: '47 98798-12518', endereco: 'Rua XV de novembro, 531', cidade: 'Itajaí', uf: 'SC' },
+                { nome: 'Mario da Silva', telefone: '47 98798-48154', endereco: 'Rua XV de outubro, 15', cidade: 'Balneário Camboriú', uf: 'SC' },
+                { nome: 'João de Souza', telefone: '48 97887-68154', endereco: 'Rua 13 de julho, 48', cidade: 'Florianópolis', uf: 'SC' },
+                { nome: 'João Maria', telefone: '45 99978-78125', endereco: 'Rua 7 de setembro, 654', cidade: 'Curitiba', uf: 'PR' },
+                { nome: 'Maria João', telefone: '11 97987-58125', endereco: 'Rua 21 de abril, 654', cidade: 'São Paulo', uf: 'SP' },
+                { nome: 'Silva e Souza', telefone: '47 99997-65484', endereco: 'Rua 01 de abril, 21', cidade: 'Itajaí', uf: 'SC' },
+                { nome: 'Jacinto Filho', telefone: '85 99914-12184', endereco: 'Rua 25 de dezembro, 151', cidade: 'Rio Branco', uf: 'AC' },
+                { nome: 'Telêmaco Borba', telefone: '51 97487-88429', endereco: 'Rua Marechal Rondom, 315', cidade: 'Porto Alegre', uf: 'RS' },
+                { nome: 'Hugo Chaves', telefone: '47 94156-98781', endereco: 'Rua Candido Mariano, 651', cidade: 'Blumenau', uf: 'SC' },
+                { nome: 'Evita Perón', telefone: '47 98748-61258', endereco: 'Avenida Afonso Pena, 2316', cidade: 'Camboriú', uf: 'SC' }
+            ];
+
+            const template = document.createElement('template');
+
+
+
+            template.innerHTML = `
+            <style>
+                .card {
+                    display: flex; 
+                    flex-direction: column; 
+                    background-color: #ececec; 
+                    border-radius: 20px; 
+                    padding: 20px;
+                    margin-bottom: 10px
+                }
+
+                .detalhes {
+                    display: block
+                }
+
+                .ocultarDetalhes {
+                    display: none
+                }
+
+                button {
+                    max-width: fit-content;
+                }
+               
+            </style>
+            `
+
+            contatos.map((contato, indice) => {
+
+                //mostrarDetalhes(contato.nome)
+
+
+                template.innerHTML += `
+                <div class="card" id="${indice.toString()}">
+                   
+                    <span><b>${contato.nome}</b></span>
+                    <span>${contato.telefone}</span>
+                    <div class="detalhes ocultarDetalhes">
+                        <span>${contato.endereco}</span><br>
+                        <span>${contato.cidade}</span><br>
+                        <span>${contato.uf}</span>
+                    </div>
+                    <button class="mostrar-detalhes">Mostrar detalhes</button>
+                </div>
+                `
+                
+
+
+            })
+
+
+            this.shadowRoot.appendChild(template.content.cloneNode(true))
+
+            this.shadowRoot.querySelectorAll('.mostrar-detalhes')
+                .forEach(elemento => elemento
+                .addEventListener('click', (evento) => { 
+                    let detalhes = evento.target.parentNode.querySelector('.detalhes')
+                    detalhes.classList.toggle('ocultarDetalhes')
+                    
+                }))
+
+
+        }
+
+
+    }
+
+
+    customElements.define('contato-card', ContatoCard)
+
+
+
+</script>
+
+</html>
